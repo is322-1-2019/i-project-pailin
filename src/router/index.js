@@ -1,48 +1,40 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import firebase from "firebase/app";
-import "firebase/auth";
 
-import { store } from "../store";
+// import { store } from "../store";
 
-import Ex01Page from "../components/ex01/Ex01Page.vue";
-import Ex02Page from "../components/ex02/Ex02Page.vue";
-import Ex03Page from "../components/ex03/Ex03Page.vue";
-import LoginPage from "../components/LoginPage.vue";
+import Minesweeper from "../components/game/Minesweeper.vue";
+// import Measy from "../components/game/Measy";
+// import Mnormal from "../components/game/Mnormal";
+// import Mhard from "../components/game/Mhard.vue";
+import MainPage from "../components/MainPage.vue";
 
 Vue.use(VueRouter);
 
 const routeList = [
   {
     path: "/",
-    component: LoginPage,
+    component: MainPage,
   },
   {
-    path: "/ex01",
-    component: Ex01Page,
+    path: "/home",
+    component: Minesweeper,
   },
-  {
-    path: "/ex02",
-    component: Ex02Page,
-  },
-  {
-    path: "/ex03",
-    component: Ex03Page,
-  }
+  // {
+  //   path: "/easy",
+  //   component: Measy,
+  // },
+  // {
+  //   path: "/normal",
+  //   component: Mnormal,
+  // },
+  // {
+  //   path: "/hard",
+  //   component: Mhard,
+  // }
 ];
 
 export const router = new VueRouter({
   routes: routeList,
-});
-
-router.beforeEach((to, from, next) => {
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (!user) {
-      store.dispatch("messages/addMessage","Login First!!");
-      next("/");   
-    }
-  });
-
-  next();
 });
