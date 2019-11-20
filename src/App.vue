@@ -1,20 +1,16 @@
 <template>
   <div class="container">
-    <router-link></router-link>
-    <!-- <main-page></main-page>
-    <minesweeper></minesweeper> -->
+    <keep-alive>
+    <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
 <script>
-// import MainPage from './components/MainPage.vue'
-// import Minesweeper from './components/game/Minesweeper.vue'
 
 export default {
   name: 'app',
   components: {
-    // MainPage,
-    // Minesweeper
   }
 }
 </script>
