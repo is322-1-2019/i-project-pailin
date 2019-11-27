@@ -18,7 +18,6 @@
 
 <script>
 import NavBar from "../NavBar.vue";
-import { EventBus } from "../../plugins/event-bus.js";
 export default {
     mounted(){
         for(var j=0;j<20;j++){
@@ -48,14 +47,14 @@ export default {
             this.count=this.count+1
             if(poom.value==="x"){
                 this.pooms.forEach(poom => poom.showValue=true)
+                this.$store.dispatch("scores/addScore", {
+                    score: this.count,
+                    level: "easy",
+                });
                 this.$buefy.notification.open('BOMBED!!')
-                this.count.fireChanges()
                 return
             }
         },
-        fireChanges() {
-            EventBus.$emit("user-play-easy", this.count);
-        }
     }
 }
 </script>
