@@ -1,9 +1,10 @@
 <template>
     <div>
         <nav-bar></nav-bar>
-        <b-field>
-            <p>This is your luck : {{count}}</p>
-        </b-field>
+        <div class="columns">
+            <p class="column">This is your luck : {{count}}</p>
+            <b-button tag="router-link" to="/" type="is-link">restart</b-button>
+        </div>
         <div class="columns is-multiline">
             <b-button 
                 class="column is-1 state" 
