@@ -1,11 +1,10 @@
 <template>
     <div class="card">
+        <img src="https://dejpknyizje2n.cloudfront.net/svgcustom/clipart/preview/boom-graphic-comic-sticker-31105-300x300.png">
+        <h1>Welcome to Bombed Field</h1>
         <nav-bar></nav-bar>
-        <div>
-            <h1>This is Main Page</h1>
-            <p>Max score</p>
-            <b-table :data="scores" :columns="columns"></b-table>
-        </div>
+        <p>Live Score</p>
+        <b-table class="primary" :data="scores" :columns="columns"></b-table>
     </div>
 </template>
 
@@ -21,10 +20,7 @@ export default {
             columns: [
                 { field: "level", label: "level" },
                 { field: "score", label: "score" },
-            ]
-            // MaxE: 0,
-            // MaxN: 0,
-            // MaxH: 0
+            ],
         }
     },
     computed: {

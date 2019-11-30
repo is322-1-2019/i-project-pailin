@@ -8,6 +8,7 @@
             <b-button 
                 class="column is-2 state" 
                 :key="poom.id" 
+                :disabled="boom || poom.showValue"
                 v-for="poom in pooms"
                 @click="step(poom)">
                     <p v-show="poom.showValue">{{ poom.value }}</p>
@@ -39,6 +40,7 @@ export default {
             pooms: [],
             bombPosition: [],
             count: 0,
+            boom: false,
         }
     },
     methods: {
@@ -46,14 +48,27 @@ export default {
             poom.showValue=true
             this.count=this.count+1
             if(poom.value==="x"){
-                this.pooms.forEach(poom => poom.showValue=true)
+                this.pooms.forEach(poom => {
+                    poom.showValue=true
+                    this.boom=true
+                })
                 this.$store.dispatch("scores/addScore", {
                     score: this.count,
                     level: "easy",
                 });
-                this.$buefy.notification.open('BOMBED!!')
+                this.alert()
                 return
             }
+        },
+        alert() {
+            this.$buefy.dialog.confirm({
+                title: 'Opps',
+                message: 'Better luck next time',
+                cancelText: 'Home',
+                confirmText: 'Try Again',
+                onCancel: () => this.$buefy.toast.open("Back home"),
+                onConfirm: () => this.$buefy.toast.open("Restart"),
+            })
         },
     }
 }

@@ -1,13 +1,15 @@
 <template>
     <div>
         <nav-bar></nav-bar>
-        <b-field>
-            <p>This is your luck : {{count}}</p>
-        </b-field>
+        <div class="columns">
+            <p class="column">This is your luck : {{count}}</p>
+            <b-button tag="router-link" to="/" type="is-link">restart</b-button>
+        </div>
         <div class="columns is-multiline">
             <b-button 
                 class="column is-1 state" 
                 :key="poom.id" 
+                :disabled="boom || poom.showValue"
                 v-for="poom in pooms"
                 @click="step(poom)">
                     <p v-show="poom.showValue">{{ poom.value }}</p>
@@ -39,6 +41,7 @@ export default {
             pooms: [],
             bombPosition: [],
             count: 0,
+            boom: false,
         }
     },
     methods: {
@@ -47,12 +50,23 @@ export default {
             this.count=this.count+1
             if(poom.value==="x"){
                 this.pooms.forEach(poom => poom.showValue=true)
+                this.boom = true
+                this.alert();
                 this.$store.dispatch("scores/addScore", {
                     score: this.count,
                     level: "normal",
                 });
-                this.$buefy.notification.open('BOMBED!!')
             }
+        },
+        alert() {
+            this.$buefy.dialog.confirm({
+                title: 'Opps',
+                message: 'Better luck next time',
+                cancelText: 'Home',
+                confirmText: 'Try Again',
+                onCancel: () => this.$buefy.toast.open("Back home"),
+                onConfirm: () => this.$buefy.toast.open("Restart"),
+            })
         },
     }
 }
